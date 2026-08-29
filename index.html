@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f1e7">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Nihongo Garden">
+  <title>Nihongo Garden — Japanese N4 Practice</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Nihongo Garden home"><span class="seal">日</span><span>NIHONGO<br><b>GARDEN</b></span></a>
+    <button class="streak" id="streakButton" aria-label="Current study streak"><span>◐</span><strong id="streakCount">0</strong> day streak</button>
+  </header>
+
+  <main>
+    <section id="home" class="view active">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">日本語を楽しもう</p>
+          <h1>A little Japanese,<br><em>every day.</em></h1>
+          <p class="lede">Thoughtful N4 practice in calm, focused sessions. Build your vocabulary, master grammar, and keep moving forward.</p>
+          <button class="primary" data-start="review">Start today’s practice <span>→</span></button>
+        </div>
+        <div class="sun-art" aria-hidden="true"><div class="sun"></div><div class="mountain m1"></div><div class="mountain m2"></div><span>学</span></div>
+      </div>
+
+      <div class="section-heading"><div><p class="eyebrow">YOUR PATH</p><h2>Continue learning</h2></div><button class="text-btn" data-nav="decks">View all decks →</button></div>
+      <div class="deck-grid" id="featuredDecks"></div>
+
+      <section class="daily-card">
+        <div><p class="eyebrow">DAILY CHALLENGE</p><h2>Five-minute focus</h2><p>A quick mix of vocabulary and grammar from your active decks.</p></div>
+        <div class="daily-progress"><div class="progress-ring"><span id="todayCount">0</span><small>/ 10</small></div><button class="dark" data-start="quick">Begin challenge</button></div>
+      </section>
+    </section>
+
+    <section id="decks" class="view">
+      <div class="page-title"><p class="eyebrow">COLLECTION</p><h1>Your study decks</h1><p>Choose a topic and learn at your own pace.</p></div>
+      <div class="filter-row" id="filters"><button class="chip active" data-filter="all">All</button><button class="chip" data-filter="vocabulary">Vocabulary</button><button class="chip" data-filter="grammar">Grammar</button></div>
+      <div class="deck-grid all-decks" id="allDecks"></div>
+    </section>
+
+    <section id="study" class="view study-view">
+      <div class="study-head"><button class="back" data-nav="decks">← Back</button><div><strong id="studyTitle">Deck</strong><span id="cardProgress">1 / 8</span></div><button class="icon-button" id="shuffleButton" aria-label="Shuffle cards">↝</button></div>
+      <div class="study-meter"><span id="studyMeter"></span></div>
+      <button class="flashcard" id="flashcard" aria-label="Flip flashcard">
+        <div class="card-inner">
+          <div class="card-face card-front"><span class="card-label">JAPANESE</span><div class="jp" id="cardJapanese"></div><div class="reading" id="cardReading"></div><span class="flip-hint">Tap to reveal</span></div>
+          <div class="card-face card-back"><span class="card-label">MEANING</span><div class="meaning" id="cardMeaning"></div><div class="example" id="cardExample"></div><span class="flip-hint">Tap to return</span></div>
+        </div>
+      </button>
+      <div class="card-actions"><button class="again" data-rate="again"><span>↺</span>Again</button><button class="know" data-rate="know"><span>✓</span>I know this</button></div>
+    </section>
+
+    <section id="quiz" class="view study-view">
+      <div class="study-head"><button class="back" data-nav="home">← Exit</button><div><strong>Quick practice</strong><span id="quizProgress">Question 1 of 5</span></div><span></span></div>
+      <div class="study-meter"><span id="quizMeter"></span></div>
+      <div class="quiz-card">
+        <span class="card-label">CHOOSE THE BEST ANSWER</span>
+        <h2 id="quizPrompt"></h2>
+        <p id="quizReading"></p>
+        <div class="answers" id="answers"></div>
+        <p class="feedback" id="feedback" aria-live="polite"></p>
+        <button class="primary next" id="nextQuestion" disabled>Next question →</button>
+      </div>
+    </section>
+
+    <section id="progress" class="view">
+      <div class="page-title"><p class="eyebrow">PROGRESS</p><h1>Your learning rhythm</h1><p>Small steps become lasting knowledge.</p></div>
+      <div class="stats-grid"><article><span>Cards reviewed</span><strong id="reviewedStat">0</strong></article><article><span>Words mastered</span><strong id="masteredStat">0</strong></article><article><span>Quiz accuracy</span><strong id="accuracyStat">—</strong></article></div>
+      <article class="insight"><div class="enso">◯</div><div><p class="eyebrow">THIS WEEK</p><h2 id="insightTitle">Begin your first session</h2><p id="insightText">Review a few cards today to start building your learning rhythm.</p></div></article>
+      <button class="reset" id="resetProgress">Reset local progress</button>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main navigation"><button class="active" data-nav="home"><span>⌂</span>Home</button><button data-nav="decks"><span>▤</span>Decks</button><button data-nav="progress"><span>◎</span>Progress</button></nav>
+  <script src="app.js"></script>
+</body>
+</html>
