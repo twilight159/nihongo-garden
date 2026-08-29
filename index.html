@@ -51,10 +51,12 @@
       <div class="study-meter"><span id="studyMeter"></span></div>
       <div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="Flip flashcard">
         <div class="card-inner">
-          <div class="card-face card-front"><span class="card-label">JAPANESE</span><div class="jp" id="cardJapanese"></div><div class="reading" id="cardReading"></div><div class="romaji" id="cardRomaji"></div><div class="usage-example" id="cardUsage" hidden></div><button class="speak-button" id="speakButton" type="button" aria-label="Listen to Japanese pronunciation"><span aria-hidden="true">◖))</span> Listen</button><span class="flip-hint">Tap card to reveal</span></div>
+          <div class="card-face card-front"><span class="card-label">JAPANESE</span><div class="jp" id="cardJapanese"></div><div class="reading" id="cardReading"></div><div class="romaji" id="cardRomaji"></div><div class="usage-example"><small>EXAMPLE</small><span id="cardUsage"></span></div><span class="flip-hint">Tap card to reveal</span></div>
           <div class="card-face card-back"><span class="card-label">MEANING</span><div class="meaning" id="cardMeaning"></div><div class="example" id="cardExample"></div><span class="flip-hint">Tap to return</span></div>
         </div>
       </div>
+      <div class="study-tools"><button class="speak-button" id="speakButton" type="button" aria-label="Listen to Japanese pronunciation"><span aria-hidden="true">◖))</span> Listen</button><button class="learn-button" id="learnMoreButton" type="button" aria-expanded="false" aria-controls="learnMorePanel"><span>＋</span> Learn more</button></div>
+      <section class="learn-more" id="learnMorePanel" hidden><div><p class="eyebrow" id="lessonType">USAGE NOTE</p><h3 id="lessonHeading"></h3><p id="lessonExplanation"></p></div><div class="lesson-example"><span>例</span><p id="lessonExample"></p></div><div class="lesson-tip"><strong>Remember</strong><p id="lessonTip"></p></div></section>
       <div class="card-actions"><button class="again" data-rate="again"><span>↺</span>Again</button><button class="know" data-rate="know"><span>✓</span>I know this</button></div>
     </section>
 

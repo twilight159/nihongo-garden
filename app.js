@@ -15,6 +15,44 @@ const romaji={
  '安心':'anshin','残念':'zannen','驚く':'odoroku','大切':'taisetsu','賛成':'sansei','心配':'shinpai',
  '〜ので':'~node','〜のに':'~noni','〜し、〜し':'~shi, ~shi','〜なら':'~nara','〜ても':'~temo','〜という':'~to iu'
 };
+const lessonNotes={
+ '起きる':'An intransitive verb for waking up or getting out of bed. The person who wakes is marked with は or が; use に for the waking time.',
+ '間に合う':'An intransitive verb meaning to make it before a deadline. Mark the train, meeting, or deadline with に: 電車に間に合う.',
+ '準備':'A noun that becomes a verb with する. Use ～の準備 for “preparation for…” and 準備ができる when something is ready.',
+ '片付ける':'A transitive verb: someone puts an object or place in order. Mark what is tidied with を.',
+ '留守':'Describes someone being away from home or their usual place. 留守にする means to leave a place unattended.',
+ '習慣':'A regular custom or habit. Use ～習慣がある for having a habit, or 習慣になる when something becomes habitual.',
+ '乗り換える':'A transitive verb for changing trains, buses, or transport. Use で for the transfer location and に for the new vehicle.',
+ '到着':'A noun used with する. Mark the destination with に and the arrival time with に: 三時に東京に到着する.',
+ '交差点':'A noun for the place where roads cross. Direction phrases often use 交差点を右／左に曲がる.',
+ '案内所':'A staffed information counter at a station, airport, or tourist site. Use で to mark an action done there.',
+ '往復':'Means both the outward and return journey. 往復切符 is a round-trip ticket; the opposite is 片道, one way.',
+ '遅れる':'An intransitive verb for a person or service being late. Use に for what you are late for: 会議に遅れる.',
+ '会議':'A formal meeting. Use 会議がある for one being scheduled and 会議に出る／参加する for attending.',
+ '受付':'Can mean a reception counter or the act of accepting applications. 受付で identifies the physical desk.',
+ '連絡':'Communication or notification, commonly used as 連絡する. Mark the person contacted with に.',
+ '予定':'A plan or schedule. 予定がある means to have plans; ～予定です states what is scheduled to happen.',
+ '相談':'Seeking advice through discussion. Use 人に相談する for the person consulted and ～について for the topic.',
+ '経験':'Experience gained by doing something. ～たことがある is common for experiences; 経験を積む means to gain experience.',
+ '安心':'A feeling of relief or security. 安心する describes becoming relieved; 安心な describes something safe or reassuring.',
+ '残念':'A な-adjective expressing disappointment or regret. 残念です is polite; ～て残念です gives the disappointing reason.',
+ '驚く':'An intransitive verb meaning to be surprised. Mark the surprising event or news with に.',
+ '大切':'A な-adjective for something important, precious, or worthy of care. 大切にする means to value or take care of it.',
+ '賛成':'Agreement with a proposal or opinion. Use ～に賛成する; the opposite is 反対する.',
+ '心配':'Worry or concern, used with する. 心配する is to worry; 心配な is used before a noun.',
+ '〜ながら':'Attach ながら to the verb’s ます-stem. Both actions must normally have the same subject, and the action after ながら is the main one.',
+ '〜そうです':'Attach そう to a verb’s ます-stem for something that looks likely to happen. For visual impressions with adjectives, remove い from い-adjectives.',
+ '〜てしまう':'Attach しまう to the て-form. It can show an action is completely finished or express regret about an unwanted result.',
+ '〜ようになる':'Use dictionary-form + ようになる for a new habit, or potential-form + ようになる for a newly gained ability.',
+ '〜かもしれない':'Attach directly to plain-form verbs and い-adjectives. With nouns and な-adjectives, omit だ before かもしれない. It expresses uncertain possibility.',
+ '〜ために':'Use dictionary-form + ために for a purposeful action. With nouns, use noun + のために. The action should be intentional and controllable.',
+ '〜ので':'Use a plain-form clause + ので to give a reason gently. With nouns and な-adjectives, use なので. It often sounds softer than から.',
+ '〜のに':'Use a plain-form clause + のに for an unexpected contrast: “although…” With nouns and な-adjectives, use なのに.',
+ '〜し、〜し':'Attach し to plain-form clauses to list multiple reasons or qualities. Repeating し suggests there may be additional reasons too.',
+ '〜なら':'Attach なら to a noun or plain-form idea when responding to a condition or topic already raised: “if it is…” or “speaking of…”.',
+ '〜ても':'Make the verb or adjective て-form and add も to mean the result stays true even under that condition: “even if…”.',
+ '〜という':'Place という after a quoted name or phrase to identify what something is called. Before a noun, it can also describe the content of a statement.'
+};
 let currentDeck=decks[0],cardIndex=0,quiz=[],quizIndex=0,answered=false;
 const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
 let japaneseVoice=null;
@@ -27,7 +65,7 @@ function deckCard(d){const p=deckProgress(d);return `<button class="deck-card" d
 function renderDecks(){featuredDecks.innerHTML=decks.slice(0,3).map(deckCard).join('');const f=$('.chip.active')?.dataset.filter||'all';allDecks.innerHTML=decks.filter(d=>f==='all'||d.type===f).map(deckCard).join('');$$('[data-deck]').forEach(b=>b.onclick=()=>startDeck(b.dataset.deck))}
 function navigate(id){$$('.view').forEach(v=>v.classList.toggle('active',v.id===id));$$('.bottom-nav button').forEach(b=>b.classList.toggle('active',b.dataset.nav===id));scrollTo({top:0,behavior:'smooth'});if(id==='progress')renderStats()}
 function startDeck(id){celebration.hidden=true;currentDeck=decks.find(d=>d.id===id);cardIndex=0;studyTitle.textContent=currentDeck.title;showCard();navigate('study')}
-function showCard(){const c=currentDeck.cards[cardIndex];if('speechSynthesis'in window)speechSynthesis.cancel();flashcard.classList.remove('flipped');cardJapanese.textContent=c[0];cardReading.textContent=c[1];cardRomaji.textContent=romaji[c[0]]||'';cardUsage.hidden=currentDeck.type!=='grammar';cardUsage.textContent=currentDeck.type==='grammar'?c[3]:'';cardMeaning.textContent=c[2];cardExample.textContent=c[3];cardProgress.textContent=`${cardIndex+1} / ${currentDeck.cards.length}`;studyMeter.style.width=`${(cardIndex+1)/currentDeck.cards.length*100}%`;speakButton.disabled=!('speechSynthesis'in window);speakButton.title=speakButton.disabled?'Speech is not supported by this browser':currentDeck.type==='grammar'?'Play the example sentence':'Play Japanese pronunciation'}
+function showCard(){const c=currentDeck.cards[cardIndex];if('speechSynthesis'in window)speechSynthesis.cancel();flashcard.classList.remove('flipped');learnMorePanel.hidden=true;learnMoreButton.setAttribute('aria-expanded','false');learnMoreButton.querySelector('span').textContent='＋';cardJapanese.textContent=c[0];cardReading.textContent=c[1];cardRomaji.textContent=romaji[c[0]]||'';cardUsage.textContent=c[3];cardMeaning.textContent=c[2];cardExample.textContent=c[3];lessonType.textContent=currentDeck.type==='grammar'?'GRAMMAR GUIDE':'VOCABULARY GUIDE';lessonHeading.textContent=currentDeck.type==='grammar'?`How to use ${c[0]}`:`Using ${c[0]} naturally`;lessonExplanation.textContent=lessonNotes[c[0]];lessonExample.textContent=c[3];lessonTip.textContent=currentDeck.type==='grammar'?'Notice the form immediately before the pattern, then make your own sentence with the same structure.':`Say the example aloud, then replace one detail to make a sentence about your own life.`;cardProgress.textContent=`${cardIndex+1} / ${currentDeck.cards.length}`;studyMeter.style.width=`${(cardIndex+1)/currentDeck.cards.length*100}%`;speakButton.disabled=!('speechSynthesis'in window);speakButton.title=speakButton.disabled?'Speech is not supported by this browser':currentDeck.type==='grammar'?'Play the example sentence':'Play Japanese pronunciation'}
 function rate(known){const c=currentDeck.cards[cardIndex],key=currentDeck.id+':'+c[0],finished=cardIndex===currentDeck.cards.length-1;state.reviewed++;state.xp+=known?10:4;if(known&&!state.mastered.includes(key))state.mastered.push(key);if(finished){state.xp+=30;state.deckCompletions++;}touchStudy();renderDecks();if(finished){showCelebration()}else{cardIndex++;showCard()}}
 function showCelebration(){if('speechSynthesis'in window)speechSynthesis.cancel();completedDeckName.textContent=currentDeck.title;levelUpMessage.textContent=state.xp%100<30?'New level reached!':'Deck completion reward';celebration.hidden=false}
 function makeQuiz(){const pool=decks.flatMap(d=>d.cards);quiz=[...pool].sort(()=>Math.random()-.5).slice(0,5).map(c=>{const wrong=[...new Set(pool.map(x=>x[2]).filter(x=>x!==c[2]))].sort(()=>Math.random()-.5).slice(0,3);return{c,answers:[c[2],...wrong].sort(()=>Math.random()-.5)}});quizIndex=0;showQuestion();navigate('quiz')}
@@ -44,4 +82,5 @@ function renderStats(){const level=Math.floor(state.xp/100)+1,levelXp=state.xp%1
 $$('[data-nav]').forEach(b=>b.onclick=()=>navigate(b.dataset.nav));$$('[data-start]').forEach(b=>b.onclick=makeQuiz);$$('[data-rate]').forEach(b=>b.onclick=()=>rate(b.dataset.rate==='know'));flashcard.onclick=()=>flashcard.classList.toggle('flipped');flashcard.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flashcard.classList.toggle('flipped')}};speakButton.onclick=speakJapanese;shuffleButton.onclick=()=>{currentDeck.cards.sort(()=>Math.random()-.5);cardIndex=0;showCard()};nextQuestion.onclick=()=>{if(++quizIndex<quiz.length)showQuestion();else{navigate('progress')}};$$('.chip').forEach(b=>b.onclick=()=>{$$('.chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderDecks()});resetProgress.onclick=()=>{if(confirm('Reset all locally saved learning progress?')){Object.assign(state,{reviewed:0,mastered:[],quizCorrect:0,quizTotal:0,today:0,lastStudy:null,streak:0,xp:0,deckCompletions:0});save();renderDecks()}};
 loadVoices();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices;
 studyAgain.onclick=()=>{celebration.hidden=true;cardIndex=0;showCard()};chooseDeck.onclick=()=>{celebration.hidden=true;navigate('decks')};
+learnMoreButton.onclick=()=>{const opening=learnMorePanel.hidden;learnMorePanel.hidden=!opening;learnMoreButton.setAttribute('aria-expanded',String(opening));learnMoreButton.querySelector('span').textContent=opening?'−':'＋';if(opening)learnMorePanel.scrollIntoView({behavior:'smooth',block:'nearest'})};
 renderDecks();renderStats();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');

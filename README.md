@@ -9,6 +9,7 @@ A responsive, installable Japanese N4 flashcard and quiz website designed for iP
 - Kana readings and romaji on every study card
 - Deck-completion celebration and actionable answer explanations
 - XP, levels, and unlockable learning badges
+- Example sentences and expandable usage guides for every card
 - Flip-card study mode with shuffle and confidence ratings
 - Five-question mixed quizzes with immediate feedback
 - Local progress, mastery, accuracy, and streak tracking

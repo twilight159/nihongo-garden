@@ -14,11 +14,16 @@ for (const device of [
     await page.locator('[data-deck="daily"]').first().click();
     await expect(page.locator('#cardJapanese')).toBeVisible();
     await expect(page.locator('#cardRomaji')).not.toBeEmpty();
+    await expect(page.locator('#cardUsage')).toContainText('—');
+    await page.locator('#learnMoreButton').click();
+    await expect(page.locator('#lessonExplanation')).not.toBeEmpty();
+    await page.locator('#learnMoreButton').click();
     await expect(page.locator('#speakButton')).toBeEnabled();
     await page.locator('#speakButton').click();
     await expect(page.locator('#flashcard')).not.toHaveClass(/flipped/);
     await page.locator('#flashcard').click();
     await expect(page.locator('#cardMeaning')).toBeVisible();
+    await expect(page.locator('#speakButton')).toBeVisible();
     await page.locator('[data-rate="know"]').click();
     for(let card=1;card<6;card++) await page.locator('[data-rate="know"]').click();
     await expect(page.locator('#celebration')).toBeVisible();
@@ -46,6 +51,9 @@ for (const device of [
     await page.locator('#allDecks [data-deck="patterns"]').click();
     await expect(page.locator('#cardUsage')).toBeVisible();
     await expect(page.locator('#cardUsage')).toContainText('—');
+    await page.locator('#learnMoreButton').click();
+    await expect(page.locator('#lessonType')).toHaveText('GRAMMAR GUIDE');
+    await expect(page.locator('#lessonExplanation')).toContainText('Attach');
     expect(errors).toEqual([]);
   });
 }
