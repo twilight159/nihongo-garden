@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Nihongo Garden">
   <title>Nihongo Garden — Japanese N4 Practice</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css?v=9">
+  <link rel="stylesheet" href="styles.css?v=10">
 </head>
 <body>
   <header class="topbar">
@@ -44,6 +44,7 @@
       <div class="page-title"><p class="eyebrow">COLLECTION</p><h1>Your study decks</h1><p>Choose a topic and learn at your own pace.</p></div>
       <div class="filter-row" id="filters"><button class="chip active" data-filter="all">All</button><button class="chip" data-filter="vocabulary">Vocabulary</button><button class="chip" data-filter="grammar">Grammar</button></div>
       <div class="deck-grid all-decks" id="allDecks"></div>
+      <section class="dictionary"><div class="dictionary-head"><div><p class="eyebrow">DICTIONARY</p><h2>Browse all entries</h2><p>Search Japanese, kana, romaji, or English.</p></div><label class="search-box"><span>⌕</span><input id="dictionarySearch" type="search" placeholder="Try ‘travel’, そう, or anshin" autocomplete="off"></label></div><div class="dictionary-grid" id="dictionaryResults"></div><p class="empty-state" id="dictionaryEmpty" hidden>No matching entries found.</p></section>
     </section>
 
     <section id="study" class="view study-view">
@@ -87,8 +88,9 @@
     <div class="confetti" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="celebration-card"><div class="celebration-seal">祝</div><p class="eyebrow">DECK COMPLETE</p><h2 id="celebrationTitle">よくできました！</h2><p>You completed <strong id="completedDeckName"></strong>. Every review is another step forward.</p><div class="reward-earned"><span>✦</span><strong>+30 XP</strong><small id="levelUpMessage">Deck completion reward</small></div><div class="celebration-actions"><button class="primary" id="studyAgain">Study again ↻</button><button class="secondary" id="chooseDeck">Choose another deck</button></div></div>
   </div>
+  <div class="session-picker" id="sessionPicker" role="dialog" aria-modal="true" aria-labelledby="sessionTitle" hidden><div class="session-card"><button class="close-picker" id="closeSession" aria-label="Close">×</button><p class="eyebrow">CHOOSE YOUR PACE</p><h2 id="sessionTitle">How much time do you have?</h2><p id="sessionDeckName"></p><div class="session-options"><button data-session="6"><span>6</span><div><strong>Quick session</strong><small>About 5 minutes</small></div></button><button data-session="12"><span>12</span><div><strong>Extended session</strong><small>About 10 minutes</small></div></button><button data-session="all"><span>全</span><div><strong>Full deck</strong><small>Study every card</small></div></button></div></div></div>
 
   <nav class="bottom-nav" aria-label="Main navigation"><button class="active" data-nav="home"><span>⌂</span>Home</button><button data-nav="decks"><span>▤</span>Decks</button><button data-nav="progress"><span>◎</span>Progress</button></nav>
-  <script src="app.js?v=9"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>

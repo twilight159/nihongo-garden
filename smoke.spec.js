@@ -13,6 +13,9 @@ for (const device of [
     await page.goto('http://127.0.0.1:8080', { waitUntil: 'networkidle' });
     await expect(page.locator('#home h1')).toContainText('A little Japanese');
     await page.locator('[data-deck="daily"]').first().click();
+    await expect(page.locator('#sessionPicker')).toBeVisible();
+    await expect(page.locator('[data-session="12"]')).toBeVisible();
+    await page.locator('[data-session="6"]').click();
     await expect(page.locator('#cardJapanese')).toBeVisible();
     await expect(page.locator('#cardRomaji')).not.toBeEmpty();
     await expect(page.locator('#cardUsage')).toContainText('—');
@@ -55,7 +58,12 @@ for (const device of [
     await expect(page.locator('.badge.unlocked')).not.toHaveCount(0);
     await page.locator('#progress [data-nav="decks"]').click();
     await expect(page.locator('#decks')).toBeVisible();
+    await expect(page.locator('#allDecks [data-deck="daily"]')).toContainText('12 cards');
+    await page.locator('#dictionarySearch').fill('dekakeru');
+    await expect(page.locator('#dictionaryResults')).toContainText('出かける');
     await page.locator('#allDecks [data-deck="patterns"]').click();
+    await page.locator('[data-session="12"]').click();
+    await expect(page.locator('#cardProgress')).toHaveText('1 / 12');
     await expect(page.locator('#cardUsage')).toBeVisible();
     await expect(page.locator('#cardUsage')).toContainText('—');
     await page.locator('#learnMoreButton').click();

@@ -10,6 +10,7 @@ A responsive, installable Japanese N4 flashcard and quiz website designed for iP
 - Deck-completion celebration and actionable answer explanations
 - XP, levels, and unlockable learning badges
 - Example sentences and expandable usage guides for every card
+- 72 searchable dictionary entries and selectable 6-card, 12-card, or full-deck sessions
 - Flip-card study mode with shuffle and confidence ratings
 - Five-question mixed quizzes with immediate feedback
 - Local progress, mastery, accuracy, and streak tracking
