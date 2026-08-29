@@ -28,6 +28,8 @@ for (const device of [
     await expect(page.locator('#speakButton')).toBeVisible();
     const backBox=await page.locator('#study .back').boundingBox(),cardBox=await page.locator('#flashcard').boundingBox();
     expect(Math.abs(backBox.x-cardBox.x)).toBeLessThan(8);
+    const titleBox=await page.locator('#studyTitle').boundingBox();
+    expect(Math.abs((titleBox.x+titleBox.width/2)-device.viewport.width/2)).toBeLessThan(8);
     await page.locator('[data-rate="know"]').click();
     for(let card=1;card<6;card++) await page.locator('[data-rate="know"]').click();
     await expect(page.locator('#celebration')).toBeVisible();

@@ -83,4 +83,9 @@ $$('[data-nav]').forEach(b=>b.onclick=()=>navigate(b.dataset.nav));$$('[data-sta
 loadVoices();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices;
 studyAgain.onclick=()=>{celebration.hidden=true;cardIndex=0;showCard()};chooseDeck.onclick=()=>{celebration.hidden=true;navigate('decks')};
 learnMoreButton.onclick=()=>{const opening=learnMorePanel.hidden;learnMorePanel.hidden=!opening;learnMoreButton.setAttribute('aria-expanded',String(opening));learnMoreButton.querySelector('span').textContent=opening?'−':'＋';if(opening)learnMorePanel.scrollIntoView({behavior:'smooth',block:'nearest'})};
-renderDecks();renderStats();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
+renderDecks();renderStats();
+if('serviceWorker'in navigator){
+ let refreshing=false;
+ navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!refreshing){refreshing=true;location.reload()}});
+ navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(registration=>registration.update());
+}
