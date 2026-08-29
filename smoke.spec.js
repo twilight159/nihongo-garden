@@ -26,8 +26,9 @@ for (const device of [
     await page.locator('#flashcard').click();
     await expect(page.locator('#cardMeaning')).toBeVisible();
     await expect(page.locator('#speakButton')).toBeVisible();
-    const backBox=await page.locator('#study .back').boundingBox(),cardBox=await page.locator('#flashcard').boundingBox();
-    expect(Math.abs(backBox.x-cardBox.x)).toBeLessThan(8);
+    const backBox=await page.locator('#study .back').boundingBox(),studyBox=await page.locator('#study').boundingBox(),cardBox=await page.locator('#flashcard').boundingBox();
+    expect(Math.abs(backBox.x-studyBox.x)).toBeLessThan(8);
+    if(device.viewport.width>900)expect(cardBox.x).toBeGreaterThan(backBox.x+100);
     const titleBox=await page.locator('#studyTitle').boundingBox();
     expect(Math.abs((titleBox.x+titleBox.width/2)-device.viewport.width/2)).toBeLessThan(8);
     await page.locator('[data-rate="know"]').click();

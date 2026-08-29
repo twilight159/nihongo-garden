@@ -87,5 +87,5 @@ renderDecks();renderStats();
 if('serviceWorker'in navigator){
  let refreshing=false;
  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!refreshing){refreshing=true;location.reload()}});
- navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(registration=>registration.update());
+ navigator.serviceWorker.register('sw.js?v=9',{updateViaCache:'none'}).then(registration=>registration.update());
 }

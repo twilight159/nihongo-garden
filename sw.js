@@ -1,5 +1,5 @@
-﻿const CACHE='nihongo-garden-v8';
-const ASSETS=['./','./index.html','./styles.css','./app.js','./manifest.webmanifest'];
+﻿const CACHE='nihongo-garden-v9';
+const ASSETS=['./','./index.html','./styles.css?v=9','./app.js?v=9','./manifest.webmanifest'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
