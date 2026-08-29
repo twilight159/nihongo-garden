@@ -4,6 +4,7 @@ for (const device of [
   { name: 'iPhone', viewport: { width: 390, height: 844 } },
   { name: 'iPad', viewport: { width: 820, height: 1180 } },
   { name: 'iPad landscape', viewport: { width: 1180, height: 820 } },
+  { name: 'PC desktop', viewport: { width: 1440, height: 1000 } },
 ]) {
   test(`${device.name} core flow`, async ({ page }) => {
     await page.setViewportSize(device.viewport);
@@ -16,6 +17,7 @@ for (const device of [
     await expect(page.locator('#cardRomaji')).not.toBeEmpty();
     await expect(page.locator('#cardUsage')).toContainText('—');
     await page.locator('#learnMoreButton').click();
+    await expect(page.locator('#learnMoreButton')).toContainText('Show more');
     await expect(page.locator('#lessonExplanation')).not.toBeEmpty();
     await page.locator('#learnMoreButton').click();
     await expect(page.locator('#speakButton')).toBeEnabled();
@@ -24,6 +26,8 @@ for (const device of [
     await page.locator('#flashcard').click();
     await expect(page.locator('#cardMeaning')).toBeVisible();
     await expect(page.locator('#speakButton')).toBeVisible();
+    const backBox=await page.locator('#study .back').boundingBox(),cardBox=await page.locator('#flashcard').boundingBox();
+    expect(Math.abs(backBox.x-cardBox.x)).toBeLessThan(8);
     await page.locator('[data-rate="know"]').click();
     for(let card=1;card<6;card++) await page.locator('[data-rate="know"]').click();
     await expect(page.locator('#celebration')).toBeVisible();
