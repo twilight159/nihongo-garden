@@ -5,6 +5,10 @@ A responsive, installable Japanese N4 flashcard and quiz website designed for iP
 ## Features
 
 - Six original N4-level vocabulary and grammar decks
+- Japanese pronunciation using the device's built-in speech voice
+- Kana readings and romaji on every study card
+- Deck-completion celebration and actionable answer explanations
+- XP, levels, and unlockable learning badges
 - Flip-card study mode with shuffle and confidence ratings
 - Five-question mixed quizzes with immediate feedback
 - Local progress, mastery, accuracy, and streak tracking
